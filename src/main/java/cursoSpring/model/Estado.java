@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="estados")
 @EntityListeners(AuditingEntityListener.class)
@@ -28,6 +30,7 @@ public class Estado implements Serializable {
 	private String nome;
 	
 	private List<Cidade> cidades = new ArrayList<>();
+	
 	public Estado() {
 		
 	}
@@ -51,17 +54,16 @@ public class Estado implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
 	@OneToMany(mappedBy = "estado")
+	@JsonBackReference
 	public List<Cidade> getCidades() {
 		return cidades;
 	}
 	public void setCidades(List<Cidade> cidades) {
 		this.cidades = cidades;
 	}
-	@Override
-	public String toString() {
-		return "Estado [id=" + id + ", nome=" + nome + ", cidades=" + cidades + "]";
-	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

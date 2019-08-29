@@ -1,6 +1,7 @@
 package cursoSpring.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,12 +9,16 @@ import java.util.Set;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import cursoSpring.model.enun.TipoCliente;
+
 @Entity
 public class Cliente implements Serializable{
 	/**
@@ -26,7 +31,7 @@ public class Cliente implements Serializable{
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
-	private List<Endereco> enderecos;
+	private List<Endereco> enderecos = new ArrayList<>();
 	private Set<String> telefones = new HashSet<>();
 	
 	public  Cliente() {
@@ -82,7 +87,9 @@ public class Cliente implements Serializable{
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCod();
 	}
+	
 	@OneToMany(mappedBy = "cliente")
+	@JsonManagedReference
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -100,11 +107,8 @@ public class Cliente implements Serializable{
 		this.telefones = telefones;
 	}
 
-	@Override
-	public String toString() {
-		return "Cliente [id=" + id + ", nome=" + nome + ", email=" + email + ", cpfOuCnpj=" + cpfOuCnpj + ", tipo="
-				+ tipo + ", enderecos=" + enderecos + ", telefones=" + telefones + "]";
-	}
+
+	
 
 	@Override
 	public int hashCode() {

@@ -4,19 +4,17 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
-@Table(name="cidades")
-@EntityListeners(AuditingEntityListener.class)
 public class Cidade  implements Serializable{
 	/**
 	 * 
@@ -28,6 +26,7 @@ public class Cidade  implements Serializable{
 	private String nome;
 	
 	private Estado estado;
+	
 	public Cidade() {
 		
 	}
@@ -52,18 +51,19 @@ public class Cidade  implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
 	@ManyToOne
 	@JoinColumn(name="estado_id")
+	@JsonManagedReference
 	public Estado getEstado() {
 		return estado;
 	}
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
-	@Override
-	public String toString() {
-		return "Cidade [id=" + id + ", nome=" + nome + ", estado=" + estado + "]";
-	}
+	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
