@@ -15,6 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import cursoSpring.model.enun.StatusPagamento;
 @Entity
 public class Pedido implements Serializable {
@@ -23,6 +26,7 @@ public class Pedido implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer id;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Date dataPedido;
 	private StatusPagamento status;
 	private Pagamento pagamento;
@@ -64,6 +68,7 @@ public class Pedido implements Serializable {
 		this.status = status;
 	}
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
+	@JsonManagedReference
 	public Pagamento getPagamento() {
 		return pagamento;
 	}
@@ -80,6 +85,7 @@ public class Pedido implements Serializable {
 	}
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
+	@JsonManagedReference
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -87,6 +93,7 @@ public class Pedido implements Serializable {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+	
 	@OneToMany(mappedBy = "id.pedido")
 	public Set<ItemPedido> getItens() {
 		return itens;

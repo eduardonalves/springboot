@@ -61,7 +61,7 @@ public class CursoSpringApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		/**/
-		/**/
+		/*
 		Categoria cat1 = new Categoria(null, "Bebidas");
 		Categoria cat2 = new Categoria(null, "Cama e Mesa");
 		Produto p1= new Produto(null, "Cocal Cola", 8.00);
@@ -144,7 +144,7 @@ public class CursoSpringApplication implements CommandLineRunner{
 		p2.getItens().addAll(Arrays.asList(item2));
 		p3.getItens().addAll(Arrays.asList(item3));
 		
-		itemPedidoRepository.saveAll(Arrays.asList(item1, item2, item3));
+		itemPedidoRepository.saveAll(Arrays.asList(item1, item2, item3));*/
 		
 		
 	}

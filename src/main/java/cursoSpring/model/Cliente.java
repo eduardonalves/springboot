@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import cursoSpring.model.enun.TipoCliente;
@@ -108,6 +109,7 @@ public class Cliente implements Serializable{
 		this.telefones = telefones;
 	}
 	@OneToMany(mappedBy = "cliente")
+	@JsonBackReference
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
