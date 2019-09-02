@@ -13,9 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table(name="categorias")
 @EntityListeners(AuditingEntityListener.class)
@@ -59,7 +56,6 @@ public class Categoria implements Serializable {
 	}
 	
 	@ManyToMany(mappedBy = "categorias")
-	@JsonManagedReference
 	public List<Produto> getProdutos() {
 		return produtos;
 	}

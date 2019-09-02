@@ -9,8 +9,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import cursoSpring.model.enun.StatusPagamento;
 
@@ -49,7 +48,7 @@ public abstract class Pagamento implements Serializable{
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	@MapsId
-	@JsonBackReference
+	@JsonIgnore
 	public Pedido getPedido() {
 		return pedido;
 	}
