@@ -1,5 +1,6 @@
 package cursoSpring.controller;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import cursoSpring.model.Categoria;
 
@@ -39,8 +41,11 @@ public class CategoriasController {
 		return ResponseEntity.ok().body(categoria);
 	}
 	@PostMapping("/add")
-	public Categoria add(@Valid @RequestBody Categoria categoria) {
-		return categoriaService.create(categoria);
+	public ResponseEntity<Void> add(@Valid @RequestBody Categoria categoria) {
+		categoria = categoriaService.create(categoria);
+		URI uri = ServletUriComponentsBuilder.fromCurrentServletMapping().path("/categorias/view/{id}").buildAndExpand(categoria.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+		
 	}
 	
 	@PutMapping("/edit/{id}")
