@@ -49,8 +49,9 @@ public class CategoriasController {
 	}
 	
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<Categoria> update(@PathVariable(value = "id") Integer id, @Valid @RequestBody Categoria detalheCategoria){
-		return categoriaService.update(id, detalheCategoria);
+	public ResponseEntity<Void> update(@PathVariable(value = "id") Integer id, @Valid @RequestBody Categoria detalheCategoria){
+		 categoriaService.update(id, detalheCategoria);
+		 return ResponseEntity.noContent().build();
 	} 
 	@DeleteMapping("/delete/{id}")
 	public Map<String, Boolean> delete(@PathVariable(value="id") Integer id) throws ObjectNotFoundException {

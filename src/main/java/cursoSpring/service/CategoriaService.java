@@ -6,9 +6,11 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import cursoSpring.exception.DataIntegrityException;
 import cursoSpring.exception.ObjectNotFoundException;
 import cursoSpring.model.Categoria;
 import cursoSpring.repository.CategoriasRepository;
@@ -42,9 +44,16 @@ public class CategoriaService {
 	}
 	
 	public Map<String, Boolean> delete(Categoria categoria) {
-		repo.delete(categoria);
+		try {
+			repo.delete(categoria);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é permitido deletar categoria com produtos");
+		}
+		
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;
+		
+		
 	}
 }
