@@ -7,9 +7,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import cursoSpring.dto.CategoriaDto;
 import cursoSpring.exception.DataIntegrityException;
 import cursoSpring.exception.ObjectNotFoundException;
 import cursoSpring.model.Categoria;
@@ -30,6 +34,11 @@ public class CategoriaService {
 	public List<Categoria> findList(){
 		return repo.findAll();
 	}
+	
+	public Page<Categoria> findPage(Integer page, Integer size, String orderBy, String sort){
+		return repo.findAll(PageRequest.of(page, size, Direction.valueOf(sort), orderBy));
+	}
+	
 	public Categoria create(Categoria categoria) {
 		return repo.save(categoria);
 	}
@@ -53,7 +62,8 @@ public class CategoriaService {
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
 		return response;
-		
-		
+	}
+	public Categoria fromDto(CategoriaDto objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 }
