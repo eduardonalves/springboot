@@ -43,6 +43,12 @@ public class CategoriaService {
 		return repo.save(categoria);
 	}
 	
+	public Categoria update(Categoria categoria) {
+		Categoria newObj = repo.findById(categoria.getId()).orElse(null);
+		updateDate(newObj, categoria);
+		return repo.save(categoria);
+	}
+	
 	public ResponseEntity<Categoria> update(Integer id, Categoria categoriaParaAtualizar){
 		Categoria categoria = repo.findById(id).orElse(null);
 		if(categoria != null) {
@@ -65,5 +71,9 @@ public class CategoriaService {
 	}
 	public Categoria fromDto(CategoriaDto objDto) {
 		return new Categoria(objDto.getId(), objDto.getNome());
+	}
+	private void updateDate(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
+		
 	}
 }
